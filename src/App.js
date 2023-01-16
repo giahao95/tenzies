@@ -1,18 +1,19 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import './App.css';
-import Die from './components/Die';
-import { nanoid } from 'nanoid'
-import Confetti from 'react-confetti'
+import React from "react";
+import { useState, useEffect } from "react";
+import "./App.css";
+import "./components/game-xuc-xac/game-xuc-xac.css";
+import Die from "./components/Die";
+import { nanoid } from "nanoid";
+import Confetti from "react-confetti";
+import GameXucXac from "./components/game-xuc-xac/GameXucXac";
 
 function App() {
-
   function generateNewDie() {
     return {
       value: Math.ceil(Math.random() * 6),
       isHeld: false,
-      id: nanoid()
-    }
+      id: nanoid(),
+    };
   }
   function allNewDice() {
     const randomDice = [];
@@ -23,50 +24,56 @@ function App() {
     return randomDice;
   }
 
-  const [dice, setDice] = useState(allNewDice())
+  const [dice, setDice] = useState(allNewDice());
 
   const dieElements = dice.map((dieElement, index) => (
     <Die
       key={index}
       value={dieElement.value}
       isHeld={dieElement.isHeld}
-      handleClick={() => (holdDice(dieElement.id))}
+      handleClick={() => holdDice(dieElement.id)}
     />
-  ))
+  ));
 
   function handleRoll() {
-    if(tenzies){
+    if (tenzies) {
       setDice(allNewDice());
       setTenzies(false);
     } else {
-      setDice(oldDice => oldDice.map(dieElement => {
-        return dieElement.isHeld ? dieElement : generateNewDie()
-      }))
+      setDice((oldDice) =>
+        oldDice.map((dieElement) => {
+          return dieElement.isHeld ? dieElement : generateNewDie();
+        })
+      );
     }
   }
 
   function holdDice(id) {
-    setDice(oldDice => oldDice.map(dieElement => {
-      return dieElement.id === id ?
-        { ...dieElement, isHeld: !dieElement.isHeld } :
-        dieElement
-    }))
+    setDice((oldDice) =>
+      oldDice.map((dieElement) => {
+        return dieElement.id === id
+          ? { ...dieElement, isHeld: !dieElement.isHeld }
+          : dieElement;
+      })
+    );
   }
 
   const [tenzies, setTenzies] = useState(false);
 
   useEffect(() => {
-    const allHeld = dice.every(dieElement => dieElement.isHeld);
+    const allHeld = dice.every((dieElement) => dieElement.isHeld);
     const firstValue = dice[0].value;
-    const allSameValue = dice.every(dieElement => dieElement.value === firstValue);
+    const allSameValue = dice.every(
+      (dieElement) => dieElement.value === firstValue
+    );
     if (allHeld && allSameValue) {
       setTenzies(true);
     }
-  }, [dice])
+  }, [dice]);
 
   return (
     <div className="App">
-      <div className='white-container'>
+      {/* <div className='white-container'>
         {tenzies && <Confetti />}
         <h1>Tenzies</h1>
         <p>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
@@ -79,7 +86,8 @@ function App() {
         >
           {tenzies ? "New game" : "Roll"}
         </button>
-      </div>
+      </div> */}
+      <GameXucXac />
     </div>
   );
 }

@@ -1,0 +1,53 @@
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../../public/img/bgGame.png");
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  text-align: center;
+}
+
+.ban-choi {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin: 50px 0;
+}
+
+.ban-choi img {
+  width: 100px;
+  height: 100px;
+}
+
+.ban-choi button {
+  padding: 15px 20px;
+  font-size: 18px;
+  border: none;
+  background-color: aqua;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.ban-choi button:hover {
+  background-color: chartreuse;
+}
+
+.btn-play {
+  background-color: green;
+  color: #fff;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: all 0.4s;
+}
+
+.btn-play:hover {
+  background-color: red;
+}
