@@ -8,6 +8,16 @@ import Confetti from "react-confetti";
 import GameXucXac from "./components/game-xuc-xac/GameXucXac";
 
 function App() {
+  const [show, setShow] = useState({ tenziesShow: true, xucXacShow: false });
+  const [second, setSecond] = useState(0);
+  const [complete, setComplete] = useState(false);
+
+  const interval = () => {
+    return setInterval(() => {
+      setSecond((old) => old + 1);
+    }, 1000);
+  };
+
   function generateNewDie() {
     return {
       value: Math.ceil(Math.random() * 6),
@@ -49,6 +59,9 @@ function App() {
   }
 
   function holdDice(id) {
+    // if (second === 0) {
+    //   interval();
+    // }
     setDice((oldDice) =>
       oldDice.map((dieElement) => {
         return dieElement.id === id
@@ -73,21 +86,46 @@ function App() {
 
   return (
     <div className="App">
-      {/* <div className='white-container'>
-        {tenzies && <Confetti />}
-        <h1>Tenzies</h1>
-        <p>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
-        <div className='dice-container'>
-          {dieElements}
-        </div>
+      <div className="container">
+        <h1>Mini Game</h1>
         <button
-          className='roll-button'
-          onClick={handleRoll}
+          onClick={() => {
+            setShow({ xucXacShow: false, tenziesShow: true });
+          }}
         >
-          {tenzies ? "New game" : "Roll"}
+          Tenzies
         </button>
-      </div> */}
-      <GameXucXac />
+        <button
+          onClick={() => {
+            setShow({ xucXacShow: true, tenziesShow: false });
+          }}
+        >
+          Xúc Xắc
+        </button>
+      </div>
+
+      {show.tenziesShow && (
+        <div className="white-container">
+          {tenzies && <Confetti />}
+          <h1>Tenzies</h1>
+          <p>
+            Roll until all dice are the same. Click each die to freeze it at its
+            current value between rolls.
+          </p>
+          <div className="dice-container">{dieElements}</div>
+          <button className="roll-button" onClick={handleRoll}>
+            {tenzies ? "New game" : "Roll"}
+          </button>
+
+          {/* {complete ? (
+            <p>Completed in {second}s</p>
+          ) : (
+            <p className="time">Time: {second}s</p>
+          )} */}
+        </div>
+      )}
+
+      {show.xucXacShow && <GameXucXac />}
     </div>
   );
 }
