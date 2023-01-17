@@ -12,12 +12,6 @@ function App() {
   const [second, setSecond] = useState(0);
   const [complete, setComplete] = useState(false);
 
-  const interval = () => {
-    return setInterval(() => {
-      setSecond((old) => old + 1);
-    }, 1000);
-  };
-
   function generateNewDie() {
     return {
       value: Math.ceil(Math.random() * 6),
@@ -49,6 +43,8 @@ function App() {
     if (tenzies) {
       setDice(allNewDice());
       setTenzies(false);
+      setComplete(false);
+      setSecond(0);
     } else {
       setDice((oldDice) =>
         oldDice.map((dieElement) => {
@@ -59,9 +55,9 @@ function App() {
   }
 
   function holdDice(id) {
-    // if (second === 0) {
-    //   interval();
-    // }
+    if (second === 0) {
+      setSecond((second) => second + 1);
+    }
     setDice((oldDice) =>
       oldDice.map((dieElement) => {
         return dieElement.id === id
@@ -83,6 +79,24 @@ function App() {
       setTenzies(true);
     }
   }, [dice]);
+
+  useEffect(() => {
+    let held = dice.some((item) => item.isHeld);
+    let interval = null;
+
+    if (held) {
+      interval = setInterval(() => {
+        setSecond(second + 1);
+      }, 1000);
+    }
+
+    if (tenzies) {
+      clearInterval(interval);
+      setComplete(true);
+    }
+
+    return () => clearInterval(interval);
+  }, [second, tenzies]);
 
   return (
     <div className="App">
@@ -117,11 +131,11 @@ function App() {
             {tenzies ? "New game" : "Roll"}
           </button>
 
-          {/* {complete ? (
+          {complete ? (
             <p>Completed in {second}s</p>
           ) : (
             <p className="time">Time: {second}s</p>
-          )} */}
+          )}
         </div>
       )}
 
