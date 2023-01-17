@@ -60,9 +60,10 @@ export const XucXacProvider = ({ children }) => {
         }, 0);
 
         let ketQua;
-        if (tongNut > 11) {
+        if (tongNut >= 11 && tongNut <= 17) {
           ketQua = true;
-        } else {
+        }
+        if (tongNut >= 4 && tongNut < 11) {
           ketQua = false;
         }
 

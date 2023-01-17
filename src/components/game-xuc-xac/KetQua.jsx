@@ -7,9 +7,7 @@ const KetQua = () => {
   return (
     <div className="ketqua">
       {alert.show && (
-        <p className={`alert ${alert.type ? "alert-success" : "alert-danger"}`}>
-          {alert.mess}
-        </p>
+        <p className={`alert alert-${alert.type}`}>{alert.mess}</p>
       )}
 
       <div>

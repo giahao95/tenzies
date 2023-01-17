@@ -33,10 +33,10 @@ export const xucXacReduer = (state, action) => {
     case "KET_QUA":
       state.banChoi += 1;
       if (state.banChon === payload) {
-        state.alert = { show: true, type: true, mess: "Bạn đã thắng" };
+        state.alert = { show: true, type: "success", mess: "Bạn đã thắng" };
         state.banThang += 1;
       } else {
-        state.alert = { show: true, type: false, mess: "Bạn đã thua" };
+        state.alert = { show: true, type: "danger", mess: "Bạn đã thua" };
       }
       return { ...state };
     case "RESET":
