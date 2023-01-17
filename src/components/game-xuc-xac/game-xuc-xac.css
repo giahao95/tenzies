@@ -48,6 +48,40 @@
   transition: all 0.4s;
 }
 
-.btn-play:hover {
+.btn-reset {
+  background-color: yellow;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  margin: 20px;
+
+  transition: all 0.4s;
+}
+
+.btn-play:hover,
+.btn-reset:hover {
   background-color: red;
+}
+
+.ketqua {
+  position: relative;
+}
+
+.alert {
+  width: 100%;
+  margin: 10px 0;
+  padding: 5px;
+  color: #fff;
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.alert-success {
+  background-color: green;
+}
+
+.alert-danger {
+  background-color: crimson;
 }

@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+ul {
+  list-style: none;
+}
+
 .App {
   background-color: #0b2434;
   height: 500px;
@@ -84,4 +88,13 @@
 
 .container button:hover {
   background-color: cyan;
+}
+
+.history {
+  position: absolute;
+  top: 75%;
+}
+
+.history li {
+  margin: 5px;
 }

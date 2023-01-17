@@ -11,6 +11,7 @@ function App() {
   const [show, setShow] = useState({ tenziesShow: true, xucXacShow: false });
   const [second, setSecond] = useState(0);
   const [complete, setComplete] = useState(false);
+  const [history, setHistory] = useState([]);
 
   function generateNewDie() {
     return {
@@ -77,6 +78,7 @@ function App() {
     );
     if (allHeld && allSameValue) {
       setTenzies(true);
+      setHistory([...history, second]);
     }
   }, [dice]);
 
@@ -119,24 +121,40 @@ function App() {
       </div>
 
       {show.tenziesShow && (
-        <div className="white-container">
-          {tenzies && <Confetti />}
-          <h1>Tenzies</h1>
-          <p>
-            Roll until all dice are the same. Click each die to freeze it at its
-            current value between rolls.
-          </p>
-          <div className="dice-container">{dieElements}</div>
-          <button className="roll-button" onClick={handleRoll}>
-            {tenzies ? "New game" : "Roll"}
-          </button>
+        <>
+          <div className="white-container">
+            {tenzies && <Confetti />}
+            <h1>Tenzies</h1>
+            <p>
+              Roll until all dice are the same. Click each die to freeze it at
+              its current value between rolls.
+            </p>
+            <div className="dice-container">{dieElements}</div>
+            <button className="roll-button" onClick={handleRoll}>
+              {tenzies ? "New game" : "Roll"}
+            </button>
 
-          {complete ? (
-            <p>Completed in {second}s</p>
-          ) : (
-            <p className="time">Time: {second}s</p>
+            {complete ? (
+              <p>Completed in {second}s</p>
+            ) : (
+              <p className="time">Time: {second}s</p>
+            )}
+          </div>
+          {history.length > 0 && (
+            <div className="history">
+              <h3>History play</h3>
+              <ul>
+                {history?.map((item, index) => {
+                  return (
+                    <li id={index}>
+                      Play {index + 1}: {item}s
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           )}
-        </div>
+        </>
       )}
 
       {show.xucXacShow && <GameXucXac />}

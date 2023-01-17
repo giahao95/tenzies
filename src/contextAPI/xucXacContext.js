@@ -74,8 +74,14 @@ export const XucXacProvider = ({ children }) => {
     }, 100);
   };
 
+  const reset = () => {
+    dispatch({ type: "RESET" });
+  };
+
   return (
-    <xucXacContext.Provider value={{ ...state, handleTaiXiu, playXucXac }}>
+    <xucXacContext.Provider
+      value={{ ...state, handleTaiXiu, playXucXac, reset }}
+    >
       {children}
     </xucXacContext.Provider>
   );

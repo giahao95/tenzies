@@ -2,10 +2,16 @@ import React from "react";
 import { useXucXacContent } from "../../contextAPI/xucXacContext";
 
 const KetQua = () => {
-  const { banChon, banThang, banChoi } = useXucXacContent();
+  const { banChon, banThang, banChoi, alert } = useXucXacContent();
 
   return (
-    <div>
+    <div className="ketqua">
+      {alert.show && (
+        <p className={`alert ${alert.type ? "alert-success" : "alert-danger"}`}>
+          {alert.mess}
+        </p>
+      )}
+
       <div>
         bạn chọn :{" "}
         <span style={{ color: "red" }}>{banChon ? "Tài" : "Xỉu"}</span>
